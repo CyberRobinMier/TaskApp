@@ -37,7 +37,6 @@ export default{
     methods: {
         onSubmit(e){
             e.preventDefault()
-            console.log("starting")
             if(!this.text){
                 alert('Please add text')
                 return
