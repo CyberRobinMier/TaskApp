@@ -4,7 +4,8 @@
    <Tasks :tasks="tasks" />
 
 </div>
- 
+ <!-- Tasks deals with an array and is dynamic, 
+ which is why it needs binding  to the tasks down in data-->
   
 </template>
 
@@ -29,13 +30,13 @@ export default {
       this.tasks = [
         {
           id:1,
-          text: 'work on Vue',
+          text: 'Work on Vue',
           day: 'February 15th at 8:00am',
           reminder: true
         },
          {
           id:2,
-          text: 'check in with boiler people',
+          text: 'Check in with boiler people',
           day: 'February 15th at 11:00am',
           reminder: false
         },
