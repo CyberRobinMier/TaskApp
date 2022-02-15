@@ -15,9 +15,35 @@ export default {
   name: 'App',
   components: {
     Header,
-    
+  },
+  data(){
+    return {
+      tasks:[]
+    }
+    },
+    created() {
+      this.tasks = [
+        {
+          id:1,
+          text: 'work on Vue',
+          day: 'February 15th at 8:00am',
+          reminder: true
+        },
+         {
+          id:2,
+          text: 'check in with boiler people',
+          day: 'February 15th at 11:00am',
+          reminder: false
+        },
+         {
+          id:3,
+          text: 'Commit to Github',
+          day: 'February 15th at 10:00am',
+          reminder: false
+        },
+      ]
+    }
   }
-}
 </script>
 
 <style>
