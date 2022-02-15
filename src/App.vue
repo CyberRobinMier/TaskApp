@@ -1,7 +1,7 @@
 <template>
 <div class="container">
    <Header title="Task Tracker" />
-   <Tasks :tasks="tasks" />
+   <Tasks @delete-task="deleteTask" :tasks="tasks" /> <!--here we finally make it into a proper method -->
 
 </div>
  <!-- Tasks deals with an array and is dynamic, 
@@ -25,6 +25,15 @@ export default {
     return {
       tasks:[]
     }
+    },
+    methods:{
+      deleteTask(id){
+        if(confirm('Are you sure?')){  //creates a popup asking if u sure. automatically parses 'ok' and 'cancel' to true/false
+          this.tasks =this.tasks.filter((task)=>task.id !==id)
+
+        };
+        
+      }
     },
     created() {
       this.tasks = [

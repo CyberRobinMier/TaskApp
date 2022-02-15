@@ -1,7 +1,7 @@
 <template>
 <div :class="[task.reminder?'reminder':'', 'task']">
       <h3>{{task.text}}
-          <i class="fas fa-times"></i>
+          <i @click="onDelete(task.id)" class="fas fa-times"></i>
       </h3>
       <p>{{task.day}}</p>
 
@@ -15,6 +15,12 @@ export default {
     props:{
         task: Object ///is a object because it is all the data of the task which is put in an object
     },
+    methods: {
+        onDelete(id){// emit passes the prompt delete task up, and also passes up the relevant id
+            this.$emit('delete-task', id)
+        }
+
+    }
 
 }
 </script>
