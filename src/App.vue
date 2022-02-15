@@ -49,29 +49,16 @@ export default {
       toggleReminder(id){ //updating one task (object) in array of tasks
         this.tasks = this.tasks.map((task)=> task.id===id? {...task, reminder: !task.reminder}:task) //map, if task id is same, then spread task, only change reminder. if not return task
       },
+      async fetchTasks(){
+        const res = await fetch('http://localhost:5000/tasks')
+        const data = await res.json()
+        return data
+
+      }
    
     },
-    created() {
-      this.tasks = [
-        {
-          id:1,
-          text: 'Work on Vue',
-          day: 'February 15th at 8:00am',
-          reminder: true
-        },
-         {
-          id:2,
-          text: 'Check in with boiler people',
-          day: 'February 15th at 11:00am',
-          reminder: false
-        },
-         {
-          id:3,
-          text: 'Commit to Github',
-          day: 'February 15th at 10:00am',
-          reminder: false
-        },
-      ]
+    async created() {
+      this.tasks = await this.fetchTasks()
     }
   }
 </script>
