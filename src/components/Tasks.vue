@@ -6,7 +6,7 @@ layout of the singular task. Aka this component is for the layout of ALL the tas
 
 <template>
 <div :key="task.id" v-for="task in tasks">
-    <Task @delete-task="$emit('delete-task', task.id)" :task="task"/>
+    <Task @toggle-reminder="$emit('toggle-reminder', task.id)" @delete-task="$emit('delete-task', task.id)" :task="task"/>
 
 </div>
     
@@ -22,7 +22,7 @@ export default{
     components: {
         Task
     },
-    emits:['delete-task'], // an array of events that we are emitting upwards
+    emits:['delete-task', 'toggle-reminder'], // an array of events that we are emitting upwards
 
 }
 

@@ -1,7 +1,7 @@
 <template>
 <div class="container">
    <Header title="Task Tracker" />
-   <Tasks @delete-task="deleteTask" :tasks="tasks" /> <!--here we finally make it into a proper method -->
+   <Tasks @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks" /> <!--here we finally make it into a proper method -->
 
 </div>
  <!-- Tasks deals with an array and is dynamic, 
@@ -27,12 +27,13 @@ export default {
     }
     },
     methods:{
-      deleteTask(id){
+      deleteTask(id){ //changing the array of tasks
         if(confirm('Are you sure?')){  //creates a popup asking if u sure. automatically parses 'ok' and 'cancel' to true/false
           this.tasks =this.tasks.filter((task)=>task.id !==id)
-
         };
-        
+      },
+      toggleReminder(id){ //updating one task (object) in array of tasks
+        this.tasks = this.tasks.map((task)=> task.id===id? {...task, reminder: !task.reminder}:task) //map, if task id is same, then spread task, only change reminder. if not return task
       }
     },
     created() {

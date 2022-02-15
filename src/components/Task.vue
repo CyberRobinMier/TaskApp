@@ -1,7 +1,7 @@
 <template>
-<div :class="[task.reminder?'reminder':'', 'task']">
+<div @dblclick="$emit('toggle-reminder', task.id)" :class="[task.reminder?'reminder':'', 'task']">
       <h3>{{task.text}}
-          <i @click="onDelete(task.id)" class="fas fa-times"></i>
+          <i @click="$emit('delete-task', task.id)" class="fas fa-times"></i> <!--yeets the action of the event one layer up with emit -->
       </h3>
       <p>{{task.day}}</p>
 
@@ -15,12 +15,6 @@ export default {
     props:{
         task: Object ///is a object because it is all the data of the task which is put in an object
     },
-    methods: {
-        onDelete(id){// emit passes the prompt delete task up, and also passes up the relevant id
-            this.$emit('delete-task', id)
-        }
-
-    }
 
 }
 </script>
