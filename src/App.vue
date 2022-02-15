@@ -51,6 +51,7 @@ export default {
       },
       async deleteTask(id){ //changing the array of tasks
         if(confirm('Are you sure?')){  //creates a popup asking if u sure. automatically parses 'ok' and 'cancel' to true/false
+          
           const res = await fetch(`api/tasks/${id}`, {
             method: 'DELETE'
           })
@@ -59,8 +60,18 @@ export default {
           
         };
       },
-      toggleReminder(id){ //updating one task (object) in array of tasks
-        this.tasks = this.tasks.map((task)=> task.id===id? {...task, reminder: !task.reminder}:task) //map, if task id is same, then spread task, only change reminder. if not return task
+      async toggleReminder(id){ //updating one task (object) in array of tasks
+        const taskToToggle = await this.fetchTask(id)
+          const updTask= {...taskToToggle, reminder: !taskToToggle.reminder}
+        const res = await fetch(`api/tasks/${id}`, {
+          method: 'PUT',
+          headers:{
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify(updTask)
+        })
+        const data = await res.json()
+        this.tasks = this.tasks.map((task)=> task.id===id? {...task, reminder: data.reminder}:task) //map, if task id is same, then spread task, only change reminder. if not return task
       },
       async fetchTasks(){
         const res = await fetch('api/tasks')
