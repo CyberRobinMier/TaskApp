@@ -42,7 +42,7 @@ export default{
                 return
             }
             const newTask={
-                id: Math.floor(Math.random()*100000),
+                // id: Math.floor(Math.random()*100000), this is not needed anymore because of json server
                 text: this.text,
                 day: this.day, 
                 reminder: this.reminder

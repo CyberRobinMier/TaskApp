@@ -37,13 +37,26 @@ export default {
         this.showAddTask=!this.showAddTask
 
       },
-      addTask(task){
-        this.tasks=[...this.tasks, task]
+      async addTask(task){
+        const res = await fetch (`api/tasks`, {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json', 
+          },
+          body: JSON.stringify(task)
+        })
+        const data = await res.json()
+        this.tasks=[...this.tasks, data]
         
       },
-      deleteTask(id){ //changing the array of tasks
+      async deleteTask(id){ //changing the array of tasks
         if(confirm('Are you sure?')){  //creates a popup asking if u sure. automatically parses 'ok' and 'cancel' to true/false
-          this.tasks =this.tasks.filter((task)=>task.id !==id)
+          const res = await fetch(`api/tasks/${id}`, {
+            method: 'DELETE'
+          })
+          res.status === 200 ? (this.tasks =this.tasks.filter((task)=>task.id !==id)):
+          alert('Error deleting task')
+          
         };
       },
       toggleReminder(id){ //updating one task (object) in array of tasks
