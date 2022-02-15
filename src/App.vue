@@ -1,6 +1,7 @@
 <template>
 <div class="container">
    <Header title="Task Tracker" />
+   <AddTask @add-task="addTask"/>
    <Tasks @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks" /> <!--here we finally make it into a proper method -->
 
 </div>
@@ -12,6 +13,7 @@
 <script>
 import Header from './components/Header'
 import Tasks from './components/Tasks'
+import AddTask from './components/AddTask.vue'
 
 
 
@@ -19,7 +21,8 @@ export default {
   name: 'App',
   components: {
     Header,
-    Tasks
+    Tasks, 
+    AddTask,
   },
   data(){
     return {
@@ -27,6 +30,11 @@ export default {
     }
     },
     methods:{
+      addTask(task){
+        console.log("adding a task...")
+        this.tasks=[...this.tasks, task]
+        
+      },
       deleteTask(id){ //changing the array of tasks
         if(confirm('Are you sure?')){  //creates a popup asking if u sure. automatically parses 'ok' and 'cancel' to true/false
           this.tasks =this.tasks.filter((task)=>task.id !==id)
@@ -34,7 +42,8 @@ export default {
       },
       toggleReminder(id){ //updating one task (object) in array of tasks
         this.tasks = this.tasks.map((task)=> task.id===id? {...task, reminder: !task.reminder}:task) //map, if task id is same, then spread task, only change reminder. if not return task
-      }
+      },
+   
     },
     created() {
       this.tasks = [
